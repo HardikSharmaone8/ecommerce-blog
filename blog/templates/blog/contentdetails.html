@@ -1,0 +1,70 @@
+{% extends 'blog/basic.html' %}
+
+
+{% block title%}Blog Contents{% endblock %}
+
+{% block css %}
+body{
+    background-color:rgba(0,0,0,0.2)
+}
+
+#contentdetails_container{
+    height:700px;
+    width:90%;
+    margin:auto;
+    margin-top:80px;
+    margin-bottom:100px;
+
+}
+#contentdetails_pic{
+    text-align:center;
+    height:430px;
+    width:400px;
+    float:left;
+    margin-right:20px;
+    margin-bottom:20px;
+}
+.contentdetails_pic_image{
+    height:400px;
+    width:400px;
+}
+#contentdetails_author{
+    color:brown;
+    font-weight:bold;
+}
+#contentdetails_text{
+}
+
+#next_blog_button{
+        height:35px;
+        width:200px;
+        background-color:brown;
+        border-radius:5px;
+        box-sizing:border-box;
+        padding-top:8px;
+        color:white;
+        font-weight:bold;
+}
+{% endblock %}
+
+{% block body%}
+
+{% load static %}
+{% for blog_view in particular_blog %}
+<div id="contentdetails_container">
+    <p>
+        <div id="contentdetails_pic">
+            <img class=contentdetails_pic_image src="/media/{{blog_view.BlogImage}}">
+            <p style="font-size:15px;color:brown;">{{blog_view.BlogDate}} <span id="contentdetails_author">{{blog_view.BlogAuthor}}</span></p>
+        </div>
+        <div id="contentdetails_text">
+            <center><h1 style="color:brown;">{{blog_view.BlogTitle}}</h1></center>
+        </div>
+        {{blog_view.BlogDetails}}
+    </p>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

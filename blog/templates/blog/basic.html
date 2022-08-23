@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Title{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+      body{
+        padding:0;
+        margin:0;
+
+    }
+
+    @keyframes blog_logo{
+    0%{
+        color:white;
+        transform:rotate(0deg)
+        }
+    100%{
+          color:gold;
+          transform:rotate(360deg)
+    }
+    }
+
+  .fa-blog{
+  font-size:30px;
+  color:white;
+  font-weight:bold;
+  animation:blog_logo 3s infinite;
+  }
+    #navigation_header{
+        height:50px;
+        width:100%;
+        background-color:brown;
+        color:white;
+        box-sizing:border-box;
+        padding:5px 20px 0px 30px;
+        margin-bottom:20px;
+        box-shadow:5px 5px 10px black;
+        }
+
+    #navigation_ul{
+    display:flex;
+    list-style:none;
+
+    }
+    .nav-link{
+        font-weight:bold;
+        color:white;
+        margin-left:20px;
+        text-decoration:none;
+    }
+
+    .nav-link:hover{
+        color:gold;
+    }
+
+
+{% block css %}  {% endblock %}
+
+    </style>
+</head>
+<body>
+
+<div id="navigation_header">
+
+     <ul id="navigation_ul">
+         <li style="margin:-5px 650px 0px 0px;">
+             <i class="fa-solid fa-blog"></i>
+             <span style="color:white;font-weight:bold;margin:0px 10px 0px 10px;">BLOG</span>
+         </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/shop/item">Shop</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/content">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/shop/tracker">Tracker</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/shop/contacts">Contact</a>
+            </li>
+          </ul>
+</div>
+
+{% block body %}{% endblock%}
+<script>
+    {% block script %}{% endblock %}
+</script>
+</body>
+</html>
