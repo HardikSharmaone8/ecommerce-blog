@@ -43,6 +43,47 @@ def show_user_blog_details(request,myid):
 
     return render(request,'blog/userContentDetails.html',params)
 
+def search(request):
+
+    blog_searched_value = request.GET.get('search','')
+    all_blog = []
+
+    # when user search blog in published blog database
+    user_blog = PublishBlog.objects.values('Blogger_Title')
+    user_blog_setComprehension = {item['Blogger_Title'] for item in user_blog}
+
+    for blog in user_blog_setComprehension:
+        get_all_userblog_data = PublishBlog.objects.filter(Blogger_Title=blog)
+        print("GET_ALL_USERBLOG_DATA",get_all_userblog_data[0].Author_Name)
+        if blog_searched_value in get_all_userblog_data[0].Author_Name.lower() or blog_searched_value in get_all_userblog_data[0].Blogger_Content.lower() or blog_searched_value in get_all_userblog_data[0].Blogger_Title.lower():
+            all_blog.append(get_all_userblog_data)
+
+    # logic when user search blof in database
+    blog_title = DatabaseBlog.objects.values('BlogTitle')
+    blog_title_setComprehension = {item['BlogTitle'] for item in blog_title}
+    for cat in blog_title_setComprehension:
+        get_all_blog_data = DatabaseBlog.objects.filter(BlogTitle=cat)
+        print("Get_All_BLOG_DATA",get_all_blog_data[0].BlogAuthor)
+        if blog_searched_value in get_all_blog_data[0].BlogDetails.lower() or blog_searched_value in get_all_blog_data[0].BlogTitle.lower() or blog_searched_value in get_all_blog_data[0].BlogMoral.lower() or  blog_searched_value in get_all_blog_data[0].BlogAuthor.lower():
+            all_blog.append(get_all_blog_data)
+
+
+    print("Value of all Blog0", all_blog)
+
+    print(len(all_blog))
+    if len(all_blog) == 0:
+        check = True
+        return render(request, 'blog/search.html', {"check":check})
+    else:
+        params = {
+            "blogDetails": all_blog
+        }
+        print(params)
+        return render(request, 'blog/search.html', params)
+
+
+
+
 def createblog(request):
     if request.method == "POST":
         author_name = request.POST.get('author_name','')

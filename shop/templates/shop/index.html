@@ -21,7 +21,7 @@ i{
 
 #big_container{
   height:auto;
-  width:870px;
+  width:860px;
   margin-left:200px;
   overflow:hidden;
   margin-bottom:100px;
@@ -59,6 +59,9 @@ i{
 img{
   height:120px;
   width:100%;
+}
+.name{
+  margin-top:-1px;
 }
 .pro_text{
   height:25%;
@@ -123,6 +126,12 @@ h5{
   font-weight:bold;
 }
 
+@media (max-width: 480px) {
+  .show_pro{
+    background-color:pink;
+  }
+}
+
   {% endblock%}
 
 {% block body %}
@@ -131,7 +140,7 @@ h5{
   {% for product, range, nslide in allProduct %}
 
     <div class="container">
-      <h4 style="font-weight:bold;margin-top:50px;margin-bottom:10px;">{{product.0.category}}</h4>
+      <h2 style="font-weight:bold;margin-top:50px;margin-bottom:10px;">{{product.0.category}}</h2>
       <i style="margin-top:100px;" class="fa-solid fa-backward-fast" onclick="backward_show({{forloop.counter}})"></i>
 
       <div class="semi_container">
@@ -143,9 +152,9 @@ h5{
             <div class="pro_image">
               <img src ="/media/{{i.image}}">
             </div>
-            <h5 class="name">{{i.product_name}}</h5>
+            <h4 class="name">{{i.product_name}}</h4>
               <div class="pro_text">
-                <p style="color:brown;font-weight:bold;">Price:- <span>{{i.price}}</span> </p>
+                <h3 style="color:brown;font-weight:bold;">Price:- <span>{{i.price}}</span> </h3>
                 <p style="margin-top:-12px;">{{i.desc|slice:":50"}}</p>
               </div>
 
@@ -199,7 +208,7 @@ let i=1
 function forward_show(x){
   while(range+1>i){
     console.log(i)
-      document.getElementById("big_container").children[x-1].querySelector(".semi_container").style.marginLeft = -865 * i + "px"
+      document.getElementById("big_container").children[x-1].querySelector(".semi_container").style.marginLeft = -855 * i + "px"
       document.getElementById("big_container").children[x-1].querySelector(".slide_show_container").children[i].style.backgroundColor = "brown"
       break
     }
@@ -220,5 +229,3 @@ function forward_show(x){
 
 
 {% endblock %}
-
-

@@ -64,6 +64,9 @@ input{
 {% endblock %}
 
 {% block body %}
+
+
+
 <div id="background_image_blog">
     <div id="create_blog_container">
         <h2>Publish your Blog</h2>
@@ -83,7 +86,7 @@ input{
 {% block script %}
 
 {% if check %}
-console.log("Hello formt he true side")
+alert("Your Blog Successfully Published..")
 document.location = '/blog/content'
 {% endif%}
 {% endblock%}
