@@ -1,5 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect, HttpResponse
 from .models import DatabaseBlog, PublishBlog
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 # Create your views here.
 def show_blog(request):
@@ -99,3 +102,86 @@ def createblog(request):
 
 
     return render(request,'blog/createblog.html')
+
+def signup(request):
+    if request.method == "POST":
+        username = request.POST.get('username','')
+        firstname = request.POST.get('firstname','')
+        lastname = request.POST.get('lastname','')
+        email = request.POST.get('email','')
+        password = request.POST.get('password','')
+        confirmpassword = request.POST.get('confirmpassword','')
+
+       # signup form validation at database
+
+        if len(username) <= 6:
+            messages.error(request,'User Name Must be greater than 6 charactors')
+            return redirect('/blog/content')
+
+        elif username.find('0') == -1  and username.find('1') == -1  and username.find('2') == -1  and username.find('3') == -1  and username.find('4') == -1  and username.find('5') == -1  and username.find('6') == -1 and username.find('7') == -1  and username.find('8') == -1  and username.find('9') == -1:
+            messages.error(request,"Username Must be Unique So, use Digits with username and if contain than don't use space in username")
+            return redirect('/blog/content')
+
+        elif username.find(" ") >= 0:
+            messages.error(request,"Create user name without space")
+            return redirect('/blog/content')
+
+        elif len(firstname) <= 2 or len(lastname) <= 2:
+            messages.error(request,'First or Last name must be greater than two charactors')
+            return redirect('/blog/content')
+
+        elif firstname.find(" ") >=0 or lastname.find(" ") >=0:
+            messages.error(request,'First or Last name must not contain any space')
+
+        elif firstname.find('0') > -1 or firstname.find('1') >-1 or firstname.find('2') >-1 or firstname.find('3') >-1 or firstname.find('4') > -1 or firstname.find('5') > -1 or firstname.find('6') > -1 or firstname.find('7') > -1 or firstname.find('8') > -1 or firstname.find('9') > -1:
+            messages.error(request,"First name must not contain any digit")
+            return redirect('/blog/content')
+
+        elif lastname.find('0') > -1 or lastname.find('1') > -1 or lastname.find('2') > -1 or lastname.find('3') > -1 or lastname.find('4') > -1 or lastname.find('5') > -1 or lastname.find('6') > -1 or lastname.find('7') > -1 or lastname.find('8') > -1 or lastname.find('9') > -1:
+            messages.error(request,"Last name must not contain any digit")
+            return redirect('/blog/content')
+
+        elif password.isalnum() == True:
+            messages.error(request,'Password must contains special charactors like !,@,#,%,$,,*,_,- ')
+            return redirect('/blog/content')
+
+        elif len(password) <= 5:
+            messages.error(request,'Password must be greater than 5 charactors')
+            return redirect('/blog/content')
+
+        elif password != confirmpassword:
+            messages.error(request,'Confirm passoword not match with password')
+            return redirect('/blog/content')
+
+        else:
+            messages.success(request,'Your Form successfully Saved in our database')
+            myuser = User.objects.create_user(username,email,password)
+            myuser.first_name = firstname
+            myuser.last_name = lastname
+            myuser.save()
+            return redirect('/blog/content')
+
+
+def userLogin(request):
+    if request.method == "POST":
+        login_username = request.POST.get('loginusername','')
+        login_password = request.POST.get('loginpassword','')
+
+        loginUser = authenticate(username = login_username, password = login_password)
+        #this login_user return none if username or password not match with our database
+
+        if loginUser is not None:
+            login(request,loginUser)
+            messages.success(request,'Successfully LoggedIn')
+            return redirect('/blog/content')
+
+        else:
+            messages.error(request,'Please check your login details..and try after some time')
+            return redirect('/blog/content')
+
+    return HttpResponse('404 - Page not found')
+
+def userLogout(request):
+    logout(request)
+    messages.success(request,'Successfully logout...')
+    return redirect('/blog/content')

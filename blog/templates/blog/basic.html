@@ -48,7 +48,7 @@
     .nav-link{
         font-weight:bold;
         color:white;
-        margin-left:20px;
+        margin-left:15px;
         text-decoration:none;
     }
 
@@ -76,6 +76,54 @@
         height:25px;
         width:90%;
     }
+    #username_disp{
+        color:gold;
+    }
+    #dropdown{
+        height:auto;
+        width:10%;
+        background-color:rgba(250,250,250,0.8);
+        margin-top:10px;
+        position:absolute;
+        box-sizing:border-box;
+        color:black;
+        font-weight:bold;
+        text-align:center;
+        padding:5px;
+        display:none;
+    }
+    #dropdown_anchor{
+        color:black;
+    }
+    #dropdown_anchor:hover{
+        color:brown;
+    }
+
+
+    #validation{
+        height:37px;
+        width:100%;
+        background-color:rgba(250,0,0,0.5);
+        position:relative;
+        margin-top:-17px;
+        padding:5px 0px 0px 50px;
+        box-sizing:border-box;
+        font-weight:bold;
+        color:black;
+        display:none;
+    }
+    #valid{
+        height:37px;
+        width:100%;
+        background-color:rgba(250,0,0,0.5);
+        position:relative;
+        padding:5px 50px 0px 50px;
+        box-sizing:border-box;
+        font-weight:bold;
+        color:black;
+    }
+
+
     .fa-square-xmark{
             float:right;
             font-size:25px;
@@ -227,60 +275,199 @@
               <a class="nav-link" href="/shop/contacts">Contact</a>
             </li>
 
-         <li class="nav-link" class="signup_button" onclick="signup()">signUp</li>
+         {% if user.is_authenticated %}
+            <li class="nav-link" id="username_disp" onclick="dropdown()">
+             {{request.user}}<i class="fa-solid fa-caret-down" style="margin-left:5px;"></i>
+                <div id="dropdown">
+                        <a id="dropdown_anchor" href="/blog/logout">logOut</a>
+                </div>
+            </li>
 
-         <li class="nav-link" class="login_button" onclick="login()">logIn</li>
+
+            {% else %}
+                <li class="nav-link" class="signup_button" onclick="signup()">signUp</li>
+                <li class="nav-link" class="login_button" onclick="login()">logIn</li>
+         {% endif %}
      </ul>
 </div>
 
+    <!--signup and login form validation-->
 
-<!--signup page-->
-<div id="signup_container">
-     <div id="signup">
-         <i class="fa-solid fa-square-xmark"></i>
-        <center> <h1 id="signup_heading">SignUp Here</h1></center>
-         <form id="signup_form">
-             <label class="signup-label">User Name</label> <input type="text" name="username" placeholder="Choose Unique User Name" class="signup_input"required>
-             <label class="signup-label">First Name</label> <input type="text" name="firstname" placeholder="First Name"  class="signup_input"  required>
-             <label class="signup-label">Last Name</label> <input type="text" name="lastname" placeholder="Last Name"  class="signup_input" required>
-             <label class="signup-label">Email address</label> <input type="email" name="email" placeholder="Email"  class="signup_input" required>
-             <label class="signup-label">Password</label> <input type="password" name="password" placeholder="Password"  class="signup_input" required>
-             <label class="signup-label">Confirm Password</label> <input type="password" name="confirmpassword" placeholder="Confirm Password"  class="signup_input" required>
-             <center><input type="text" value="SignUp" id="signup_submit"></center>
-         </form>
-     </div>
- </div>
+    <div id="validation"></div>
 
-<!--login page-->
-<div id="login_container">
-     <div id="login">
-         <i class="fa-solid fa-square-xmark" class="login_xmark"></i>
-         <center> <h1 id="login_heading">LogIn Here</h1></center>
-         <form id="login_form">
-             <label class="signup-label">Email</label> <input type="email" name="email" placeholder="Email"  class="signup_input" required>
-             <label class="signup-label">Password</label> <input type="password" name="password" placeholder="Password"  class="signup_input" required>
-            <center><input type="text" value="LogIn" id="login_submit"></center>
-         </form>
+    {% for message in messages %}
+    <div id="valid" style="background-color:{{ message.tags }}">{{ message }}
+        <i class="fa-solid fa-square-xmark"></i>
+    </div>
+    {% endfor %}
+
+
+
+    <!--signup page-->
+    <div id="signup_container">
+         <div id="signup">
+             <i class="fa-solid fa-square-xmark"></i>
+            <center> <h1 id="signup_heading">SignUp Here</h1></center>
+             <form id="signup_form" action="/blog/signup" method="post">{% csrf_token %}
+                 <label class="signup-label">User Name</label> <input type="text" id='username' name="username" placeholder="Choose Unique User Name" class="signup_input"  required>
+                 <label class="signup-label">First Name</label> <input type="text" id="firstname" name="firstname" placeholder="First Name"  class="signup_input"  required>
+                 <label class="signup-label">Last Name</label> <input type="text" id="lastname" name="lastname" placeholder="Last Name"  class="signup_input">
+                 <label class="signup-label">Email address</label> <input type="email" name="email" placeholder="Email"  class="signup_input"  required>
+                 <label class="signup-label">Password</label> <input type="password" id="pass" name="password" placeholder="Password"  class="signup_input"  required>
+                 <label class="signup-label">Confirm Password</label> <input type="password" id='cpass' name="confirmpassword" placeholder="Confirm Password"  class="signup_input" required>
+                 <center><input type="submit" value="SignUp" id="signup_submit"></center>
+             </form>
+         </div>
      </div>
- </div>
+
+    <!--login page-->
+    <div id="login_container">
+         <div id="login">
+             <i class="fa-solid fa-square-xmark" class="login_xmark"></i>
+             <center> <h1 id="login_heading">LogIn Here</h1></center>
+             <form id="login_form" action="/blog/login" method="post">{% csrf_token %}
+                 <label class="signup-label">Username</label> <input type="username" name="loginusername" placeholder="Username"  class="signup_input" required>
+                 <label class="signup-label">Password</label> <input type="password" name="loginpassword" placeholder="Password"  class="signup_input" required>
+                <center><input type="submit" value="LogIn" id="login_submit"></center>
+             </form>
+         </div>
+     </div>
+
+
+
 
 {% block body %}{% endblock%}
 <script>
+<!--    display dropdown-->
+
+   function dropdown(){
+        document.querySelector("#dropdown").style.display = "block"
+    }
+
+<!--display signup form-->
+
    function signup(){
         document.querySelector("#signup_container").style.display = 'block'
-        document.querySelector("#signup_container").style.transition = "5s"
     }
     function login(){
         document.querySelector("#login_container").style.display = 'block'
     }
 
-    document.querySelector(".fa-square-xmark").addEventListener("click",()=>{
+    document.querySelector("#signup").children[0].addEventListener("click",()=>{
         document.querySelector("#signup_container").style.display = "none"
     })
 
     document.querySelector("#login").children[0].addEventListener("click",()=>{
         document.querySelector("#login_container").style.display = "none"
     })
+
+
+<!--    validation logic-->
+
+function error(err){
+    document.querySelector("#validation").style.display = 'block'
+    document.querySelector("#validation").innerHTML = err
+}
+
+function success(){
+    document.querySelector("#validation").style.display = 'none'
+}
+
+<!--username validation logic-->
+
+document.querySelector("#username").addEventListener("keyup",()=>{
+    username = document.querySelector('#username').value
+
+
+    if(username.length <= 6){
+        error("Username Must Be Greater Than 6 Charactor")
+    }
+     else if(username.search('1') == -1 && username.search('2') == -1 && username.search('3') ==-1 && username.search('4')==-1 && username.search('5')==-1 && username.search('6')==-1 && username.search('7')==-1 && username.search('8') == -1 && username.search('9')==-1 && username.search('0')==-1 ){
+        error("Username Must be Unique user Digits with username")
+    }
+    else if(username.search(" ") >= 0){
+          error("Space not allowed in user name")
+    }else{
+        success()
+    }
+})
+
+<!--firstname validation logic-->
+
+document.querySelector("#firstname").addEventListener("keyup",()=>{
+    username = document.querySelector('#firstname').value
+
+    if(username.length <= 2){
+        error("First NameMust Be Greater Than 2 Charactor")
+    }
+      else if(username.search('1') != -1 || username.search('2')!= -1 || username.search('3')!=-1 || username.search('4')!=-1 || username.search('5')!=-1 || username.search('6')!=-1 || username.search('7')!=-1 || username.search('8')!=-1 || username.search('9')!=-1 || username.search('0')!=-1 ){
+        error("First Name must be charactor")
+    }
+
+    else if(username.search('!') != -1 || username.search('@') != -1 || username.search('#') !=-1 || username.search('%')!=-1 ||  username.search('&')!=-1  || username.search('_')!=-1 || username.search('-')!=-1){
+        error("Special charactors like !,@,#,%,^,&,_,-,are not allowed in First Name ")
+    }
+    else if(username.search(" ") >= 0){
+          error("Space not allowed in First Name")
+    }else{
+        success()
+    }
+})
+
+
+<!--last name validation-->
+
+document.querySelector("#lastname").addEventListener("keyup",()=>{
+    username = document.querySelector('#lastname').value
+
+     if(username.search('1')!= -1 || username.search('2')!= -1 || username.search('3')!=-1 || username.search('4')!=-1 || username.search('5')!=-1 || username.search('6')!=-1 || username.search('7')!=-1 || username.search('8')!=-1 || username.search('9')!=-1 || username.search('0')!=-1 ){
+        error("First Name must be charactor")
+    }
+    else if(username.search('!') != -1 || username.search('@') != -1 || username.search('#') !=-1 || username.search('%')!=-1 ||  username.search('&')!=-1  || username.search('_')!=-1 || username.search('-')!=-1){
+        error("Special charactors like !,@,#,%,^,&,_,-,are not allowed in Last Name ")
+    }
+    else{
+        success()
+    }
+})
+
+
+<!--Password and confirm password logic-->
+
+document.querySelector("#pass").addEventListener("keyup",()=>{
+    username = document.querySelector('#pass').value
+
+    if(username.length <= 6){
+        error("Length of the Password must be greater than 5")
+    }
+    else if(username.search('!') == -1 && username.search('@') == -1 && username.search('#') ==-1 && username.search('%')==-1 &&  username.search('&')==-1 && username.search('_')==-1 && username.search('-')==-1){
+        error("Password must use special charactors like !,@,#,$,%,^,&,*,_,-,| ")
+    }
+    else if(username.search(" ") >= 0){
+          error("Space not allowed in Password")
+    }else{
+        success()
+    }
+})
+
+document.querySelector("#cpass").addEventListener("keyup",()=>{
+    pass= document.querySelector("#pass").value
+    cpass = document.querySelector('#cpass').value
+
+    if(pass != cpass){
+        error("Confirm password must match with Passowrd")
+    }
+    else{
+        success()
+    }
+})
+
+<!--remove error or success message box logic-->
+
+document.querySelector("#valid").children[0].addEventListener("click",()=>{
+    document.querySelector("#valid").style.display = 'none';
+})
+
     {% block script %}{% endblock %}
 </script>
 </body>
