@@ -297,8 +297,8 @@
     <div class="validation"></div>
 
     {% for message in messages %}
-    <div class="valid" style="background-color:{{ message.tags }}">{{ message }}
-        <i class="fa-solid fa-square-xmark" click="remove_message"></i>
+    <div class="valid" style="background-color:{{ message.tags }}">
+        {{ message }}
     </div>
     {% endfor %}
 
@@ -463,11 +463,6 @@ document.querySelector("#cpass").addEventListener("keyup",()=>{
     }
 })
 
-<!--remove error or success message box logic-->
-
-function remove_message(){
-    document.querySelector(".valid").style.display = 'none'
-}
 
     {% block script %}{% endblock %}
 </script>
