@@ -54,6 +54,9 @@ label{
     margin-top:50px;
     box-sizing:border-box;
 }
+#customer_order_id{
+    height:32px;
+}
 .shipment_status_texts{
     height:auto;
     width:20px;
@@ -83,11 +86,15 @@ i{
     color:brown;
     font-size:25px;
 }
+.tracker_heading{
+    color:brown;
+    font-weight:bold;
+}
 {% endblock%}
 
 {% block body %}
     <div id="tracking_container1">
-        <h4>Enter Your Tracking Id</h4>
+        <h2 class="tracker_heading">Enter Your Tracking Id</h2>
         <center>
         <div id="tracking_semicontainer">
             <form action="/shop/tracker" method="post">{% csrf_token %}
@@ -99,7 +106,7 @@ i{
     </div>
 
     <div id="tracking_container3">
-        <h4>Product Details</h4>
+        <h2 class="tracker_heading">Product Details</h2>
 
         {% for description,date,product_name_value,product_names_values in updates %}
             <div style="display:flex;">
@@ -129,7 +136,7 @@ i{
 
 
     <div id="tracking_container2">
-        <h4>Order Status</h4>
+        <h2 class="tracker_heading">Order Status</h2>
         <div class="status_title" style="display:flex;visibility:hidden;">
                 <div class="shipment_status_text" style="color:brown;font-weight:bold;font-size:18px;">Activity</div>
                 <div style="color:brown;font-weight:bold;font-size:18px;width:20%;"></div>

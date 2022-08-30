@@ -115,20 +115,29 @@
         color:white;
         font-weight:bold;
         font-size:25px;
-
-
+        text-decoration:none;
     }
     #create_blog_button:hover{
     background-color:white;
     border:3px solid brown;
+    color:brown;
 }
-a{
+.create_blog_button{
+    color:white;
+}
+.create_blog_button:hover{
+    color:brown;
+    }
+a:hover{
+    color:brown;
+}
+.blog_anchor{
     text-decoration:none;
     font-weight:bold;
     color:white;
     box-sizing:border-box;
 }
-a:hover{
+.blog_anchor:hover{
     color:brown;
 }
     .blog_content_semicontainer{
@@ -155,6 +164,10 @@ a:hover{
         height:150px;
         width:100%;
     }
+    .blog_title_anchor{
+    text-decoration:none;
+    color:black;
+}
     .blog_readmore_button{
         background-color:brown;
         color:white;
@@ -181,7 +194,9 @@ color:white;
         border:3px solid brown;
 
     }
-
+a{
+    text-decoration:none;
+}
 {% endblock%}
 
 {% block body %}
@@ -206,7 +221,7 @@ color:white;
     <div id="create_blog_container">
             <center><h1 id="create_blog_heading">Publish your passions, your way</h1></center>
               <center> <h2 id="create_blog_heading2">Create a unique and beautiful blog</h2></center>
-             <center> <div id="create_blog_button"><a href="createblog">CREATE YOUR BLOG</a></div></center>
+             <center> <div id="create_blog_button"><a href="createblog" class="create_blog_button">CREATE YOUR BLOG</a></div></center>
 
 
     </div>
@@ -244,7 +259,7 @@ color:white;
                 <div class="blog_content">
                      <img class="blog_content_image" src ="/media/{{i.BlogImage}}">
                     <p style="font-size:11px;color:brown;">{{i.BlogDate}} <span style="margin-left:20px;">{{i.BlogAuthor}}</span></p>
-                    <h3 style="margin-top:-5px;">{{i.BlogTitle}}</h3>
+                    <h3 style="margin-top:-5px;"><a class="blog_title_anchor" href="contentdetails/{{i.id}}">{{i.BlogTitle}}</a></h3>
                     <p style="margin-top:-12px;">{{i.BlogDetails|slice:"0:50"}}...</p>
                     <div  class="blog_readmore_button"><a class="blog_anchor" href="contentdetails/{{i.id}}">Read More</a></div>
                 </div>
@@ -258,7 +273,7 @@ color:white;
                     <div class="blog_content">
                         <img class="blog_content_image" src ="/media/{{i.Blog_Image}}">
                         <p style="font-size:11px;color:brown;">{{i.Blog_Date}} <span style="margin-left:20px;">{{i.Author_Name}}</span></p>
-                        <h3 style="margin-top:-5px;">{{i.Blogger_Title}}</h3>
+                        <h3 style="margin-top:-5px;" >{{i.Blogger_Title}}</h3>
                         <p style="margin-top:-12px;">{{i.Blogger_Content|slice:"0:50"}}...</p>
                         <div  class="blog_readmore_button"><a class="blog_anchor" href="userContentDetails/{{i.id}}">Read More</a></div>
                     </div>

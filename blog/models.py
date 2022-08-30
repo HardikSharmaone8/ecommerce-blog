@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class DatabaseBlog(models.Model):
@@ -24,3 +25,17 @@ class PublishBlog(models.Model):
 
     def __str__(self):
         return self.Blogger_Title
+
+class Comments(models.Model):
+    Sno = models.AutoField(primary_key = True)
+    Product_Id = models.CharField(max_length=1000)
+    Reply_id = models.IntegerField()   #this can store the parent comment Sno
+    Comment = models.TextField(max_length=500)
+    User = models.ForeignKey(User,on_delete=models.CASCADE)
+    Post = models.ForeignKey(DatabaseBlog,on_delete=models.CASCADE)
+    Parent = models.ForeignKey('self',on_delete=models.CASCADE,null = True)
+    Commment_Date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.Comment[0:20]
+

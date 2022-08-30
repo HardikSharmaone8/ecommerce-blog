@@ -19,7 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .import views
 
-
+#to change name admin django page default heading
+admin.site.site_header = 'Hkart Admin'
+admin.site.site_title = 'Hkart Admin Page'
+admin.site.index_title = 'Welcome to Hkart Administration page'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
