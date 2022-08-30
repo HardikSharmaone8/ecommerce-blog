@@ -26,7 +26,7 @@
     text-align:center;
     border:2px solid white;
 }
-input{
+.create_blog_text{
     width:100%;
     margin-top:20px;
     background-color:black;
@@ -40,7 +40,7 @@ input{
     background-color:rgba(250,250,250,0.2);
     color:white;
 }
-::placeholder{
+.create_blog_text::placeholder{
     color:white;
 }
 
@@ -71,12 +71,12 @@ input{
     <div id="create_blog_container">
         <h2>Publish your Blog</h2>
         <form action="/blog/createblog" method="post">{% csrf_token %}
-            <input type="text" name="author_name" placeholder="Blogger Name" required>
-            <input type="email" name="email" placeholder="Blogger Email ID" required>
-            <input type="text" name="title" placeholder="Blog Title" required>
-            <textarea class="textarea" name="content" rows="6" cols="63" placeholder="Blog Content" required></textarea>
-            <input type="file" name="pic" required>
-            <input  id='create_blog_submit' type="submit" value="Publish">
+            <input class="create_blog_text" type="text" name="author_name" placeholder="Blogger Name" required>
+            <input class="create_blog_text" type="email" name="email" placeholder="Blogger Email ID" required>
+            <input class="create_blog_text" type="text" name="title" placeholder="Blog Title" required>
+            <textarea  class="textarea" name="content" rows="6" cols="63" placeholder="Blog Content" required></textarea>
+            <input class="create_blog_text" type="file" name="pic" required>
+            <input class="create_blog_text"  id='create_blog_submit' type="submit" value="Publish">
         </form>
     </div>
 </div>

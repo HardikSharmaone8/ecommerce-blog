@@ -9,7 +9,7 @@ class DatabaseBlog(models.Model):
     BlogMoral = models.CharField(max_length=50,default="Enter the Moral Of the Blog")
     BlogDetails = models.CharField(max_length=5000,default="Write Complete Blog Here")
     BlogAuthor = models.CharField(max_length=20,default="Name Of Blogger")
-    BlogImage = models.ImageField(upload_to='shop/image', default="")
+    BlogImage = models.ImageField(upload_to='shop/image', default=" ")
 
     def __str__(self):
         return self.BlogTitle
@@ -39,3 +39,15 @@ class Comments(models.Model):
     def __str__(self):
         return self.Comment[0:20]
 
+class Publish_Comments(models.Model):
+    Sno = models.AutoField(primary_key = True)
+    Product_Id = models.CharField(max_length=1000)
+    Reply_id = models.IntegerField()   #this can store the parent comment Sno
+    Post_Comment_On_User_Blog = models.ForeignKey(PublishBlog, on_delete=models.CASCADE)
+    Comment = models.TextField(max_length=500)
+    User = models.ForeignKey(User,on_delete=models.CASCADE)
+    Parent = models.ForeignKey('self',on_delete=models.CASCADE,null = True)
+    Commment_Date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.Comment[0:20]

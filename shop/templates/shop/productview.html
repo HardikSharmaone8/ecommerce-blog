@@ -38,7 +38,7 @@ align-items:center;
 margin-left:40px;
 }
 
-.product_add{
+.product_add,.product_buy{
 height:35px;
 width:35%;
 text-align:center;
@@ -55,7 +55,9 @@ box-sizing:border-box;
 .product_add:hover{
 cursor:pointer;
 }
-
+.product_buy:hover{
+cursor:pointer;
+}
 #view_text_container{
 width:60%;
 margin-left:10%;
@@ -72,7 +74,7 @@ font-weight:bold;
   <div id="view_pic_container">
     <div id="view_pic"><img src="/media/{{productview.image}}" /></div>
     <div id="view_pic_button">
-      <div class="product_add">Buy Now</div>
+      <div class="product_buy">Buy Now</div>
       <div class="product_add">Add To Cart</div>
     </div>
   </div>
@@ -83,4 +85,23 @@ font-weight:bold;
   </div>
 </div>
 {% endfor %}
+{% endblock %}
+
+{% block script %}
+
+document.querySelector(".product_buy").addEventListener("click",()=>{
+  swal({
+  title: "Information",
+  text: "Sorry, Bank server is down, So, please try again later",
+  icon: "info",
+});
+})
+
+document.querySelector(".product_add").addEventListener("click",()=>{
+  swal({
+  title: "Information",
+  text: "Please add products on home screen",
+  icon: "info",
+});
+})
 {% endblock %}

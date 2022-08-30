@@ -168,90 +168,90 @@ body{
 
 {% load static %}
 {% for blog_view in particular_blog %}
-<div id="contentdetails_container">
-    <p>
-        <div id="contentdetails_pic">
-            <img class=contentdetails_pic_image src="/media/{{blog_view.BlogImage}}">
-    <p style="font-size:15px;color:brown;">{{blog_view.BlogDate}} <span id="contentdetails_author">{{blog_view.BlogAuthor}}</span><span style="display:none" id="show_id">{{blog_view.id}}</span></p>
-        </div>
-        <div id="contentdetails_text">
-            <center><h1 style="color:brown;">{{blog_view.BlogTitle}}</h1></center>
-        </div>
-        {{blog_view.BlogDetails}}
-    </p>
-
-
-</div>
-<div id="comment_container">
-    <h1 style="color:white;">Recent Comments(<span id="comment_count"></span>)</h1>
-    <hr>
-    <div id="post_comment_container">
-        {% if user.is_authenticated %}
-            <form action="/blog/comment" method="post">{% csrf_token %}
-                <div style="display:flex;">
-                    <input type="hidden" value="" name="product_comment_id" class="product_comment_id" >
-                    <label><img class="user-comment-image" src="{% static 'blog/blog1.jpg' %}"></label> <input type="text" placeholder="Add a comment.." id="comment_text" name="comment_text" required>
-                    <input id="post_comment" type="submit" value="Post">
-                </div>
-            </form>
-        {% else %}
-        <h2>Please Logged In to Post Comments</h2>
-        {% endif %}
-    </div>
-
-<!--    display user comments-->
-    <div id="disp_comment_container">
-
-        {% for comment in show_comment %}
-            <div class="show_comment">
-                <div class="user-comment-div">
-                    <img class="user-comment-image" src="{% static 'blog/blog1.jpg' %}">
-                </div>
-                <div style="margin:0px;">
-                    <h3 style="margin:0px;">{{comment.User.username}}</h3>
-                    <span style="font-size:13px;">{{comment.Commment_Date}}<span style="display:none;">{{comment.Sno}}</span></span>
-                    <p>{{comment.Comment}}</p>
-
-                    <div class="reply_button" onclick="reply({{forloop.counter}})">
-                        <i class="fa-regular fa-comment"></i>
-                    </div>
-
-                    <div class="reply_form">
-                        <form action="/blog/comment" method="post">{% csrf_token %}
-                            <div style="display:flex;">
-                                <input type="hidden" value="1" name="product_comment_id" class="product_comment_id">
-                                <input type="hidden" value="" name="product_reply_id" class="product_reply_id">
-                                <label>
-                                    <img class="user-reply-image" src="{% static 'blog/blog1.jpg' %}">
-                                </label>
-                                <input type="text" placeholder="Add a Reply.." class="reply_comment_text" name="comment_text" required>
-                            </div>
-                            <input class="post_reply" type="submit" value="Reply">
-                        </form>
-                    </div>
-
-<!--display reply of that particular comment-->
-                    <div id="show_reply_container">
-                        {% for reply in show_reply %}
-                            {% if comment.Sno is reply.Reply_id %}
-                            <div class="show_reply" style="display:flex;">
-                                 <div class="user-reply-div">
-                                    <img class="user-reply-image" src="{% static 'blog/blog1.jpg' %}">
-                                 </div>
-                                <div style="margin:0px;">
-                                    <h3 style="margin:0px;">{{reply.User.username}}</h3>
-                                    <span style="font-size:13px;">{{reply.Commment_Date}}<span style="display:none;">{{reply.Sno}}</span></span>
-                                    <p>{{reply.Comment}}</p>
-                                </div>
-                            </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
+    <div id="contentdetails_container">
+        <p>
+            <div id="contentdetails_pic">
+                <img class=contentdetails_pic_image src="/media/{{blog_view.BlogImage}}">
+        <p style="font-size:15px;color:brown;">{{blog_view.BlogDate}} <span id="contentdetails_author">{{blog_view.BlogAuthor}}</span><span style="display:none" id="show_id">{{blog_view.id}}</span></p>
             </div>
-        {% endfor %}
+            <div id="contentdetails_text">
+                <center><h1 style="color:brown;">{{blog_view.BlogTitle}}</h1></center>
+            </div>
+            {{blog_view.BlogDetails}}
+        </p>
+
+
     </div>
-</div>
+    <div id="comment_container">
+        <h1 style="color:white;">Recent Comments(<span id="comment_count"></span>)</h1>
+        <hr>
+        <div id="post_comment_container">
+            {% if user.is_authenticated %}
+                <form action="/blog/comment" method="post">{% csrf_token %}
+                    <div style="display:flex;">
+                        <input type="hidden" value="" name="product_comment_id" class="product_comment_id" >
+                        <label><img class="user-comment-image" src="{% static 'blog/blog1.jpg' %}"></label> <input type="text" placeholder="Add a comment.." id="comment_text" name="comment_text" required>
+                        <input id="post_comment" type="submit" value="Post">
+                    </div>
+                </form>
+            {% else %}
+            <h2>Please Logged In to Post Comments</h2>
+            {% endif %}
+        </div>
+
+    <!--    display user comments-->
+        <div id="disp_comment_container">
+
+            {% for comment in show_comment %}
+                <div class="show_comment">
+                    <div class="user-comment-div">
+                        <img class="user-comment-image" src="{% static 'blog/blog1.jpg' %}">
+                    </div>
+                    <div style="margin:0px;">
+                        <h3 style="margin:0px;">{{comment.User.username}}</h3>
+                        <span style="font-size:13px;">{{comment.Commment_Date}}<span style="display:none;">{{comment.Sno}}</span></span>
+                        <p>{{comment.Comment}}</p>
+
+                        <div class="reply_button" onclick="reply({{forloop.counter}})">
+                            <i class="fa-regular fa-comment"></i>
+                        </div>
+
+                        <div class="reply_form">
+                            <form action="/blog/comment" method="post">{% csrf_token %}
+                                <div style="display:flex;">
+                                    <input type="hidden" value="" name="product_comment_id" class="product_comment_id">
+                                    <input type="hidden" value="" name="product_reply_id" class="product_reply_id">
+                                    <label>
+                                        <img class="user-reply-image" src="{% static 'blog/blog1.jpg' %}">
+                                    </label>
+                                    <input type="text" placeholder="Add a Reply.." class="reply_comment_text" name="comment_text" required>
+                                </div>
+                                <input class="post_reply" type="submit" value="Reply">
+                            </form>
+                        </div>
+
+    <!--display reply of that particular comment-->
+                        <div id="show_reply_container">
+                            {% for reply in show_reply %}
+                                {% if comment.Sno is reply.Reply_id %}
+                                <div class="show_reply" style="display:flex;">
+                                     <div class="user-reply-div">
+                                        <img class="user-reply-image" src="{% static 'blog/blog1.jpg' %}">
+                                     </div>
+                                    <div style="margin:0px;">
+                                        <h3 style="margin:0px;">{{reply.User.username}}</h3>
+                                        <span style="font-size:13px;">{{reply.Commment_Date}}<span style="display:none;">{{reply.Sno}}</span></span>
+                                        <p>{{reply.Comment}}</p>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
 
 {% endfor %}

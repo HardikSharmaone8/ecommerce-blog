@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect, HttpResponse
-from .models import DatabaseBlog, PublishBlog, Comments
+from .models import DatabaseBlog, PublishBlog, Comments, Publish_Comments
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -48,8 +48,14 @@ def show_blog_details(request,myid):
 def show_user_blog_details(request,myid):
     parti_blog = PublishBlog.objects.filter(id=myid)
     print("jsdfkjs;kljaslfjlsdk;lsjf", parti_blog)
-    params ={"particular_blog":parti_blog}
 
+    # sending comment in conetentdetails.html file
+    show_comment = Publish_Comments.objects.filter(Product_Id=myid, Parent=None)
+    show_reply = Publish_Comments.objects.filter(Product_Id=myid).exclude(Parent=None)  # show_reply variable me only reply store honge means jha jha pr parent none hoga wo wala reply yha store hoga
+    print("show reply", show_reply)
+    print("show comment", type(show_comment))
+
+    params = {"particular_blog": parti_blog, "show_comment": show_comment,"show_reply":show_reply}
 
     return render(request,'blog/userContentDetails.html',params)
 
@@ -126,6 +132,7 @@ def comment(request):
             comments = Comments(Product_Id=comment_id, Reply_id=parentSno, Comment=comment_by_user, User=active_user, Post=post)
             comments.save()
             messages.success(request, 'Your comment has been posted successfully')
+            return redirect(f'/blog/contentdetails/{comment_id}')
         else:
             parent = Comments.objects.get(Sno = parentSno)
             print("parent",parent)
@@ -133,9 +140,39 @@ def comment(request):
             comments.save()
             messages.success(request, 'Your reply has been posted successfully')
 
+            return redirect(f'/blog/contentdetails/{comment_id}')
 
 
-        return redirect(f'/blog/contentdetails/{comment_id}')
+
+
+def publish_comment(request):
+    if request.method == 'POST':
+        print("heeloo")
+        comment_id = request.POST.get('product_comment_id','')
+        print("commentId",comment_id)
+        comment_by_user = request.POST.get('comment_text','')
+        active_user = request.user  #what particular user comment shows this line
+        user_post = PublishBlog.objects.get(id = comment_id)#this line shows all the post of that particular product in which user comment
+        parentSno = request.POST.get('product_reply_id')
+        print("parentsno",parentSno)
+
+        if parentSno == None:
+            parentSno = 0
+            comments = Publish_Comments(Product_Id=comment_id, Reply_id=parentSno, Comment=comment_by_user, User=active_user, Post_Comment_On_User_Blog=user_post)
+            comments.save()
+            messages.success(request, 'Your comment has been posted successfully')
+            return redirect(f'/blog/userContentDetails/{comment_id}')
+        else:
+            parent = Publish_Comments.objects.get(Sno = parentSno)
+            print("parent",parent)
+            comments = Publish_Comments(Product_Id=comment_id, Reply_id=parentSno, Comment=comment_by_user, User=active_user,Post_Comment_On_User_Blog=user_post, Parent=parent)
+            comments.save()
+            messages.success(request, 'Your reply has been posted successfully')
+
+
+            return redirect(f'/blog/userContentDetails/{comment_id}')
+
+
 
 
 

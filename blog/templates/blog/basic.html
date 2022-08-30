@@ -64,6 +64,8 @@
         color:white;
         font-weight:bold;
         border:1px solid white;
+        width:100px;
+        height:32px;
     }
     #search_blog:hover{
         cursor:pointer;
@@ -111,7 +113,7 @@
         color:black;
         display:none;
     }
-    #valid{
+    .valid{
         height:37px;
         width:100%;
         background-color:rgba(250,0,0,0.5);
@@ -292,10 +294,10 @@
 
     <!--signup and login form validation-->
 
-    <div id="validation"></div>
+    <div class="validation"></div>
 
     {% for message in messages %}
-    <div id="valid" style="background-color:{{ message.tags }}">{{ message }}
+    <div class="valid" style="background-color:{{ message.tags }}">{{ message }}
         <i class="fa-solid fa-square-xmark" click="remove_message"></i>
     </div>
     {% endfor %}
@@ -364,12 +366,12 @@
 <!--    validation logic-->
 
 function error(err){
-    document.querySelector("#validation").style.display = 'block'
-    document.querySelector("#validation").innerHTML = err
+    document.querySelector(".validation").style.display = 'block'
+    document.querySelector(".validation").innerHTML = err
 }
 
 function success(){
-    document.querySelector("#validation").style.display = 'none'
+    document.querySelector(".validation").style.display = 'none'
 }
 
 <!--username validation logic-->
@@ -464,7 +466,7 @@ document.querySelector("#cpass").addEventListener("keyup",()=>{
 <!--remove error or success message box logic-->
 
 function remove_message(){
-    document.querySelector("#valid").style.display = 'none';
+    document.querySelector(".valid").style.display = 'none'
 }
 
     {% block script %}{% endblock %}
