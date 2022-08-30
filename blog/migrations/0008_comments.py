@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('Commment_Date', models.DateTimeField(auto_now=True)),
                 ('Parent', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='blog.comments')),
                 ('Post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='blog.databaseblog')),
-                ('User', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('User', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL))
             ],
         ),
     ]

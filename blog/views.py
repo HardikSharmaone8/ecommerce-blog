@@ -157,7 +157,6 @@ def publish_comment(request):
         print("parentsno",parentSno)
 
         if parentSno == None:
-            parentSno = 0
             comments = Publish_Comments(Product_Id=comment_id, Reply_id=parentSno, Comment=comment_by_user, User=active_user, Post_Comment_On_User_Blog=user_post)
             comments.save()
             messages.success(request, 'Your comment has been posted successfully')
