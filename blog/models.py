@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class DatabaseBlog(models.Model):
     blog_id = models.AutoField
-    BlogTitle = models.CharField(max_length=30,default="Enter the Title of Blog")
+    BlogTitle = models.CharField(max_length=30,default="Title")
     BlogDate = models.DateTimeField(auto_now_add=True)
     BlogMoral = models.CharField(max_length=50,default="Enter the Moral Of the Blog")
     BlogDetails = models.CharField(max_length=5000,default="Write Complete Blog Here")
