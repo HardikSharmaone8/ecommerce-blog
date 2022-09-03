@@ -37,7 +37,7 @@ class Checkout(models.Model):
     Address = models.CharField(max_length=50, default="Address")
     City = models.CharField(max_length=50, default="City")
     State = models.CharField(max_length=50, default="State")
-    Pincode = models.CharField(max_length=50, default="Pincode")
+    Pincode = models.IntegerField(default="Pincode")
     Phone = models.IntegerField(default="Phone Number")
 
     def __str__(self):
