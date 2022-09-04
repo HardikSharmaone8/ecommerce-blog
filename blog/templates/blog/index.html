@@ -230,29 +230,6 @@ a{
     <hr>
 
     <div class="blog_content_semicontainer">
-        <div class="blog_content">
-            <img class="blog_content_image" src="{% static 'blog/blog4.jpg'%}">
-            <p style="font-size:11px;color:brown;">20 Aug, 2022 <span>By Hardik Sharma</span></p>
-            <h3 style="margin-top:-5px;">Beatiful Blog</h3>
-            <p style="margin-top:-12px;">hardik Sharma is the greatest programmer ever i have ever seen in my life</p>
-            <div class="blog_readmore_button">Read More</div>
-        </div>
-
-        <div class="blog_content">
-            <img class="blog_content_image" src="{% static 'blog/blog4.jpg'%}">
-            <p style="font-size:11px;color:brown;">20 Aug, 2022 <span>By Hardik Sharma</span></p>
-            <h3 style="margin-top:-5px;">Beatiful Blog</h3>
-            <p style="margin-top:-12px;">hardik Sharma is the greatest programmer ever i have ever seen in my life</p>
-            <div class="blog_readmore_button">Read More</div>
-        </div>
-
-        <div class="blog_content">
-            <img class="blog_content_image" src="{% static 'blog/blog4.jpg'%}">
-            <p style="font-size:11px;color:brown;">20 Aug, 2022 <span>By Hardik Sharma</span></p>
-            <h3 style="margin-top:-5px;">Beatiful Blog</h3>
-            <p style="margin-top:-12px;">hardik Sharma is the greatest programmer ever i have ever seen in my life</p>
-            <div class="blog_readmore_button">Read More</div>
-        </div>
 
         {% for database_blog,user_blog in blogDetails %}
             {% for i in database_blog|slice:"0:" %}
@@ -286,5 +263,7 @@ a{
 {% endblock %}
 
 {% block script %}
+
 {% endblock %}
+
 
