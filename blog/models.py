@@ -20,7 +20,7 @@ class PublishBlog(models.Model):
     Blogger_Email = models.CharField(max_length=50)
     Blogger_Title = models.CharField(max_length=80)
     Blogger_Content = models.CharField(max_length=5000000)
-    Blog_Image = models.ImageField(upload_to='shop/image',default='')
+    Blog_Image = models.ImageField(upload_to='shop/image/')
     Blog_Date = models.DateTimeField(auto_now=True)
 
     def __str__(self):

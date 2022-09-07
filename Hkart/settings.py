@@ -125,7 +125,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
-STATIC_ROOT =  os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
@@ -137,7 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #activate djanog heroku
 django_heroku.settings(locals())
 
-#for messages framework or module
+#for messages framework or module']
 
 MESSAGE_TAGS = {
     messages.SUCCESS : "greenyellow"
