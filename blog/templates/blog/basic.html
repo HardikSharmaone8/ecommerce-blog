@@ -9,9 +9,6 @@
       body{
         padding:0;
         margin:0;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
     }
 
     @keyframes blog_logo{
@@ -26,10 +23,10 @@
     }
 
   .fa-blog{
-  font-size:30px;
-  color:white;
-  font-weight:bold;
-  animation:blog_logo 3s infinite;
+      font-size:30px;
+      color:white;
+      font-weight:bold;
+      animation:blog_logo 3s infinite;
   }
     #navigation_header{
         height:50px;
@@ -40,11 +37,11 @@
         padding:5px 20px 0px 30px;
         margin-bottom:20px;
         box-shadow:5px 5px 10px black;
-        }
+    }
 
     #navigation_ul{
-    display:flex;
-    list-style:none;
+        display:flex;
+        list-style:none;
 
     }
     .nav-link{
@@ -164,7 +161,6 @@
         margin-bottom:10px;
     }
     .signup-label{
-
         color:brown;
         font-weight:bold;
     }
@@ -300,9 +296,9 @@
     <div class="validation"></div>
 
     {% for message in messages %}
-    <div class="valid" style="background-color:{{ message.tags }}">
-        {{ message }}
-    </div>
+        <div class="valid" style="background-color:{{ message.tags }}">
+            {{ message }}
+        </div>
     {% endfor %}
 
 
